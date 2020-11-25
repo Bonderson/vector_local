@@ -57,11 +57,13 @@ template<typename T> vector<T>& vector<T>::operator=(const vector<T>& a) {
 }
 
 template<typename T> T& vector<T>::operator[](int n) {
-    return elem[n];
+    if (0 <= n && n <= sz) return elem[n];
+    throw std::runtime_error("Out of range.\n");
 }
 
 template<typename T> T vector<T>::operator[](int n) const {
-    return elem[n];
+    if (0 <= n && n <= sz) return elem[n];
+    throw std::runtime_error("Out of range.\n");
 }
 
 template<typename T> int vector<T>::size() const {
