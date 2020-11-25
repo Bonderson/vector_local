@@ -8,7 +8,7 @@
 
 #include "logic.hpp"
 
-void vector::reserve(int newalloc) {
+template<typename T> void vector<T>::reserve(int newalloc) {
     if (newalloc <= space) return;
     double *p = new double[newalloc];
     for (int i=0; i<sz; ++i) p[i] = elem[i];
@@ -17,82 +17,82 @@ void vector::reserve(int newalloc) {
     space = newalloc;
 }
 
-vector::vector(): sz{0}, elem{nullptr}, space{0} {} // das ergibt noch keinen Sinn, aber wir lassen das bis dann
+template<typename T> vector<T>::vector(): sz{0}, elem{nullptr}, space{0} {} // das ergibt noch keinen Sinn, aber wir lassen das bis dann
 
-vector::vector(int s): sz{s}, elem{new double[sz]}, space{sz} {
+template<typename T> vector<T>::vector(int s): sz{s}, elem{new T[sz]}, space{sz} {
     for (int i=0; i<s; ++i) elem[i] = 0;
 }
 
-vector::vector(std::initializer_list<double> lst):
-sz{static_cast<int>(lst.size())}, elem{new double[sz]}, space{sz} {
+template<typename T> vector<T>::vector(std::initializer_list<T> lst):
+sz{static_cast<int>(lst.size())}, elem{new T[sz]}, space{sz} {
     std::copy(lst.begin(), lst.end(), elem);
 }
 
-vector::vector(const vector& arg): sz{arg.sz}, elem{new double[arg.sz]}, space{sz} {
+template<typename T> vector<T>::vector(const vector<T>& arg): sz{arg.sz}, elem{new T[arg.sz]}, space{sz} {
     std::copy(arg.elem, arg.elem+sz, elem);
 }
 
-vector::vector(vector&& a): sz{a.sz}, elem{a.elem}, space{sz} {
+template<typename T> vector<T>::vector(vector<T>&& a): sz{a.sz}, elem{a.elem}, space{sz} {
     a.sz = 0; a.elem = nullptr; a.space = a.sz;
 }
 
-vector& vector::operator=(vector&& a) {
+template<typename T> vector<T>& vector<T>::operator=(vector<T>&& a) {
     delete[] elem;
     elem = a.elem; sz = a.sz;
     a.sz = 0; a.elem = nullptr;
     return *this;
 }
 
-vector& vector::operator=(const vector& a) {
+template<typename T> vector<T>& vector<T>::operator=(const vector<T>& a) {
     if (&a == this) return *this;
     if (a.sz <= space) {
         for (int i = 0; i<a.sz; ++i) elem[i] = a.elem[i];
         sz = a.sz;
         return *this;
     }
-    double* p = new double[a.sz];
+    T* p = new T[a.sz];
     for (int i = 0; i<a.sz; ++i) p[i] = a.elem[i];
     delete[] elem; elem = p; space = sz = a.sz;
     return *this;
 }
 
-double& vector::operator[](int n) {
+template<typename T> T& vector<T>::operator[](int n) {
     return elem[n];
 }
 
-double vector::operator[](int n) const {
+template<typename T> T vector<T>::operator[](int n) const {
     return elem[n];
 }
 
-int vector::size() const {
+template<typename T> int vector<T>::size() const {
     return sz;
 }
 
-double vector::get(int n) const {
+template<typename T> T vector<T>::get(int n) const {
     return elem[n];
 }
 
-void vector::set(int n, double v) {
-    elem[n]=v;
+template<typename T> void vector<T>::set(int n, T t) {
+    elem[n]=t;
 }
 
-void vector::resize(int newsize) {
+template<typename T> void vector<T>::resize(int newsize) {
     reserve(newsize);
     for (int i=sz; i<newsize; ++i) elem[i] = 0;
     sz = newsize;
 }
 
-void vector::push_back(double d) {
+template<typename T> void vector<T>::push_back(T t) {
     if (!space) reserve(8);
     else if (sz == space) reserve(2*space);
-    elem[sz] = d;
+    elem[sz] = t;
     ++sz;
 }
 
-int vector::capacity() const {
+template<typename T> int vector<T>::capacity() const {
     return space;
 }
 
-vector::~vector() {
+template<typename T> vector<T>::~vector() {
     delete[] elem;
 }

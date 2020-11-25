@@ -14,10 +14,10 @@
 #include <algorithm>
 
 
-class vector {
+template<class T> class vector {
 private:
     int sz; // Размер
-    double* elem; // Ука за тель на первый элемент puЬlic: (типа douЬl e)
+    T* elem; // Ука за тель на первый элемент puЬlic: (типа douЬl e)
     int space;
     
     void reserve(int);
@@ -25,7 +25,7 @@ private:
 public:
     vector();
     explicit vector(int);
-    vector(std::initializer_list<double>);
+    vector(std::initializer_list<T>);
     vector(const vector&);
     vector(vector&&);
     
@@ -33,15 +33,15 @@ public:
     vector& operator=(vector&&);
     vector& operator=(const vector&);
     
-    double& operator[](int);
-    double operator[](int) const;
+    T& operator[](int);
+    T operator[](int) const;
     
     
     int size() const; // Текущий размер
-    double get(int) const;
-    void set(int, double);
+    T get(int) const;
+    void set(int, T);
     void resize(int);
-    void push_back(double);
+    void push_back(T);
     int capacity() const;
     
     
