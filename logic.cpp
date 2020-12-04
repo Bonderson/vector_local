@@ -10,7 +10,7 @@
 
 template<typename T> void vector<T>::reserve(int newalloc) {
     if (newalloc <= space) return;
-    double *p = new double[newalloc];
+    T* p = new T[newalloc];
     for (int i=0; i<sz; ++i) p[i] = elem[i];
     delete[] elem;
     elem = p;

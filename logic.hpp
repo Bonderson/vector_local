@@ -17,7 +17,7 @@
 template<class T> class vector {
 private:
     int sz; // Размер
-    T* elem; // Ука за тель на первый элемент puЬlic: (типа douЬl e)
+    T* elem;
     int space;
     
     void reserve(int);

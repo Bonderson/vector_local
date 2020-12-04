@@ -10,9 +10,12 @@
 #include "logic.hpp"
 
 int main(int argc, const char * argv[]) {
-    vector v1(5) ;
-    vector v2 = {5.0};
-    vector v3 = v2;
+    vector<double> v1(5) ;
+    vector<double> v2 = {5.0};
+    vector<double> v3 = v2;
+//    vector<std::string> vs(6);
+//    vs[0] = "abc";
+//    vs.set(5, "Norah");
     std::cout << v3.get(0) << std::endl;
     v3.set(0, 4.0);
     for (int i=0; i<v1.size(); ++i) {
@@ -25,5 +28,8 @@ int main(int argc, const char * argv[]) {
     for (int i=0; i<v3.size(); ++i) {
         std::cout << "v[" << i << "]==" << v3.get(i) << std::endl;
     }
+//    for (int i=0; i<vs.size(); ++i) {
+//        std::cout << "v[" << i << "]==" << vs[i] << std::endl;
+//    }
     return 0;
 }
