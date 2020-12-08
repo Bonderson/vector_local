@@ -9,13 +9,25 @@
 #ifndef logic_hpp
 #define logic_hpp
 
+#include <iostream>
+#include <stdexcept>
 #include <stdio.h>
 #include <initializer_list>
 #include <algorithm>
+#include <memory>
+#include <string>
 
+//template<typename T> class allocator {
+//public:
+//    T* allocate(int n);
+//    void deallocate(T* p, int n);
+//    void construct(T* p, const T& v);
+//    void destroy(T* p);
+//};
 
-template<class T> class vector {
+template<typename T, typename A = std::allocator<T>> class Vector {
 private:
+    A alloc;
     int sz; // Размер
     T* elem;
     int space;
@@ -23,15 +35,15 @@ private:
     void reserve(int);
 
 public:
-    vector();
-    explicit vector(int);
-    vector(std::initializer_list<T>);
-    vector(const vector&);
-    vector(vector&&);
+    Vector();
+    explicit Vector(int);
+    Vector(std::initializer_list<T>);
+    Vector(const Vector&);
+    Vector(Vector&&);
     
     
-    vector& operator=(vector&&);
-    vector& operator=(const vector&);
+    Vector& operator=(Vector&&);
+    Vector& operator=(const Vector&);
     
     T& operator[](int);
     T operator[](int) const;
@@ -40,12 +52,12 @@ public:
     int size() const; // Текущий размер
     T get(int) const;
     void set(int, T);
-    void resize(int);
-    void push_back(T);
+    void resize(int, T val=T());
+    void push_back(const T&);
     int capacity() const;
     
     
-    ~vector();
+    ~Vector();
 };
 
 
