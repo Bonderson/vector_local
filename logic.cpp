@@ -36,6 +36,11 @@ template<typename T, typename A> Vector<T, A>::Vector(Vector<T, A>&& a): sz{a.sz
     a.sz = 0; a.elem = nullptr; a.space = a.sz;
 }
 
+template<typename T, typename A> T& Vector<T, A>::at(int n) {
+    if (0 <= n && n <= sz) return elem[n];
+    throw Range_error(n);
+}
+
 template<typename T, typename A> Vector<T, A>& Vector<T, A>::operator=(Vector<T, A>&& a) {
     delete[] elem;
     elem = a.elem; sz = a.sz;
@@ -58,12 +63,12 @@ template<typename T, typename A> Vector<T, A>& Vector<T, A>::operator=(const Vec
 
 template<typename T, typename A> T& Vector<T, A>::operator[](int n) {
     if (0 <= n && n <= sz) return elem[n];
-    throw std::runtime_error("Out of range.\n");
+    throw Range_error(n);
 }
 
 template<typename T, typename A> T Vector<T, A>::operator[](int n) const {
     if (0 <= n && n <= sz) return elem[n];
-    throw std::runtime_error("Out of range.\n");
+    throw Range_error(n);
 }
 
 template<typename T, typename A> int Vector<T, A>::size() const {

@@ -25,13 +25,17 @@
 //    void destroy(T* p);
 //};
 
+struct Range_error: std::out_of_range {
+    int index;
+    Range_error(int i): std::out_of_range("Range error"), index{i} {};
+};
+
 template<typename T, typename A = std::allocator<T>> class Vector {
 private:
     A alloc;
     int sz; // Размер
     T* elem;
     int space;
-    
     void reserve(int);
 
 public:
@@ -41,6 +45,8 @@ public:
     Vector(const Vector&);
     Vector(Vector&&);
     
+    
+    T& at(int);
     
     Vector& operator=(Vector&&);
     Vector& operator=(const Vector&);
