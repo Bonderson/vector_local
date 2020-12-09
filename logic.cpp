@@ -86,12 +86,14 @@ Vector(const Vector<T, A>& arg):
 vector_base<T, A>(arg) {}
 
 
-//template<typename T, typename A>
-//Vector<T, A>::
-//Vector(Vector<T, A>&& a):
-//sz{a.sz}, elem{a.elem}, space{sz} {
-//    a.sz = 0; a.elem = nullptr; a.space = a.sz;
-//}
+template<typename T, typename A>
+Vector<T, A>::
+Vector(Vector<T, A>&& a) {
+    this->sz = a.sz;
+    this->elem = a.elem;
+    this->space = this->sz;
+    a.sz = 0; a.elem = nullptr; a.space = a.sz;
+}
 
 
 //memory organization
