@@ -8,7 +8,6 @@
 
 #ifndef logic_hpp
 #define logic_hpp
-
 #include <iostream>
 #include <stdexcept>
 #include <stdio.h>
@@ -17,18 +16,12 @@
 #include <memory>
 #include <string>
 
-//template<typename T> class allocator {
-//public:
-//    T* allocate(int n);
-//    void deallocate(T* p, int n);
-//    void construct(T* p, const T& v);
-//    void destroy(T* p);
-//};
 
 struct Range_error: std::out_of_range {
     int index;
     Range_error(int i): std::out_of_range("Range error"), index{i} {};
 };
+
 
 template<typename T, typename A = std::allocator<T>> class Vector {
 private:
@@ -44,27 +37,27 @@ public:
     Vector(std::initializer_list<T>);
     Vector(const Vector&);
     Vector(Vector&&);
-    
-    
+
+
     T& at(int);
+
     
     Vector& operator=(Vector&&);
     Vector& operator=(const Vector&);
-    
+
     T& operator[](int);
     T operator[](int) const;
-    
-    
+
+
     int size() const; // Текущий размер
     T get(int) const;
     void set(int, T);
     void resize(int, T val=T());
     void push_back(const T&);
     int capacity() const;
-    
-    
+
+
     ~Vector();
 };
-
 
 #endif /* logic_hpp */
